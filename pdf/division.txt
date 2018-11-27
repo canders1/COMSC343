@@ -1,0 +1,14 @@
+method Euclid(m : int, n : int) returns (q : int, r : int)
+requires n > 0;
+requires m >= 0;
+ensures m == q * n + r;
+ensures r < n;
+{
+  q := 0;
+  r := m;
+  while (r >= n)
+  invariant m == q * n + r;
+  {
+r := r - n;
+q := q + 1; }
+}

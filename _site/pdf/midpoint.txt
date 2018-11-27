@@ -1,0 +1,8 @@
+method Midpoint(m : int, n : int) returns (r : int)
+requires m < n;
+ensures r >= m; 
+ensures r < n;
+{
+  var delta := (n - m) / 2;
+  return m + delta;
+}
