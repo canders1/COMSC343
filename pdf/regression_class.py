@@ -41,4 +41,24 @@ Y = tf.placeholder(tf.float32, shape = [None,1])
 W = tf.Variable(tf.constant(0.1,shape=[13,1]))
 b = tf.Variable(tf.constant(0.1))
 
+y_pred = tf.matmul(X,W) + b
+loss = tf.reduce_mean(tf.square(y_pred - Y))
+opt = tf.train.GradientDescentOptimizer(learning_rate = 0.5).minimize(loss)
+
+init = tf.global_variables_initializer()
+sess = tf.InteractiveSession()
+sess.run(init)
+initial_loss = loss.eval(feed_dict = {X:X_train, Y:Y_train})
+
+print("initial loss: {}".format(initial_loss))
+
+for i in range(100):
+	#Run the optimization step with training data
+	sess.run(opt, feed_dict = {X:X_train, Y:Y_train})
+	print("epoch "+str(i)+"loss:{}".format(loss.eval(feed_dict = {X:X_train, Y:Y_train})))
+
+final_test_loss = loss.eval(feed_dict = {X:X_test,Y:Y_test})
+print("final loss (test): {}".format(final_test_loss))
+
+
 
